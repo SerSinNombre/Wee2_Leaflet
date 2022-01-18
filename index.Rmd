@@ -1,0 +1,29 @@
+---
+title: "Markdown and Leaflet"
+subtitle: 'Author: S. J. Ariza'
+date: 'Date: 17/01/2022'
+output: html_document
+---
+
+## Map with leaflet
+
+```{r mapLeaflet,echo=TRUE, warning=FALSE, message=FALSE}
+library(leaflet)
+
+df<-data.frame(
+  name=c("Monserrate","Plaza de Bolívar","Parque Nacional","Parque Simón Bolívar","Cementerio Central"),
+  lat=c(4.6056728,4.5979889,4.6238755,4.6544365,4.6165271),
+  lng=c(-74.0555255,-74.0760998,-74.0652576,-74.0946643,-74.0749962),
+  color=c("blue","red","darkgreen","darkgreen","gray")
+)
+
+df%>%
+  leaflet(width = "100%")%>%
+  addTiles()%>%
+  addCircleMarkers(weight=3,popup=df$name,color=df$color)%>%
+  addLegend(labels=c("Mountain","Square","Park","Cemetery"),color=c("blue","red","darkgreen","gray"),title="Sites")%>%
+  addMiniMap(
+		tiles = providers$Esri.WorldStreetMap,
+		toggleDisplay = TRUE)
+
+```
